@@ -62,6 +62,9 @@ class ClientException(Exception):
     :type error: array
 
     """
+    message = None
+    http_status = None
+
     _error_code = None
     _error_desc = None
     _error_ref = None
@@ -101,7 +104,7 @@ class ClientException(Exception):
         return self._error_ref
 
     def __str__(self):
-        formatted_string = self.message
+        formatted_string = self.message if self.message is not None else ""
         if self.http_status:
             formatted_string += " (HTTP %s)" % self.http_status
         if self._error_code:
